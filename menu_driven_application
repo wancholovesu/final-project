@@ -1,0 +1,200 @@
+package menu_driven_application;
+
+import java.util.InputMismatchException;
+import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
+import visuals.Colors;
+
+public class group1 {
+	
+	private static void loadingScreen(long waitTimeMS) 
+    {
+        
+        long waitTime = waitTimeMS / 10;
+        for (int i = 0; i <= 10; i++) {
+            float percent = i * 10;
+            System.out.print("Loading... " + percent + "%\r");
+            
+            try {
+                TimeUnit.MILLISECONDS.sleep(waitTime);
+            }catch (Exception e) {}
+            
+        }
+        System.out.println("Loading Finished");
+    }
+	
+	// Method for the calculator
+	public static double calculator(double num1, double num2, String operation) {
+	    switch (operation) {
+	        case "1":
+	        	 
+	        	System.out.println("Addition");
+	            return num1 + num2;
+	        case "2":
+	        	
+	        	System.out.println("Subtraction");
+	            return num1 - num2;
+	        case "3":
+	        	 
+	        	System.out.println("Multiplication");
+	        	
+	            return num1 * num2;
+	        case "4":
+	        	 
+	        	System.out.println("Division");
+	            if (num2 != 0) {
+	                return num1 / num2;
+	            } else {
+	            	 
+	                System.out.println("Error: Division by zero!");
+	                return Double.NaN;
+	            }
+	        default:
+	        	
+	            System.out.println("Invalid operation!");
+	            return Double.NaN;
+	    }
+	}
+
+	// Method for calculating area of a circle
+	public static double calculateCircleArea(double radius) {
+	    return Math.PI * radius * radius;
+	}
+
+	// Method for calculating circumference of a circle
+	public static double calculateCircleCircumference(double radius) {
+	    return 2 * Math.PI * radius;
+	}
+
+	// Method for calculating area of a rectangle
+	public static double calculateRectangleArea(double length, double width) {
+	    return length * width;
+	}
+
+	// Method for calculating perimeter of a rectangle
+	public static double calculateRectanglePerimeter(double length, double width) {
+	    return 2 * (length + width);
+	}
+
+	// Method for converting centimeters to millimeters
+	public static double cmToMm(double cm) {
+	    return cm * 10;
+	}
+
+	// Method for converting centimeters to meters
+	public static double cmToM(double cm) {
+	    return cm / 100;
+	}
+
+	public static void main(String[] args) {
+	    Scanner scanner = new Scanner(System.in);
+	    int choice = 0;
+	    System.out.println("  __      _\r\n"
+	    		+ "o'')}____//\r\n"
+	    		+ " `_/      )\r\n"
+	    		+ " (_(_/-(_/ \n");
+	    loadingScreen(4000);
+
+	    do {
+	    	System.out.print(Colors.BLUE);
+	        System.out.println("================== Welcome to our menu ==================");
+	        System.out.println(Colors.RESET);
+	        
+	        System.out.println("1 - Calculator");
+	        System.out.println("2 - Area and Perimeter of Rectangle");
+	        System.out.println("3 - Area & Circumference of Circle");
+	        System.out.println("4 - Distance Unit Conversion (cm to mm)");
+	        System.out.println("5 - Distance Unit Conversion (cm to m)");
+	        System.out.println("6 - Exit");
+	        System.out.print("Please Choose a number from (1-6): ");
+
+	        try {
+	            choice = scanner.nextInt();
+	            clearScreen();
+	            loadingScreen(2000);
+	            switch (choice) {
+	                case 1: {
+	                	
+	                    System.out.print("Enter first number: ");
+	                    double num1 = scanner.nextDouble();
+	                    System.out.print("Enter second number: ");
+	                    double num2 = scanner.nextDouble();
+	                    System.out.print("Enter operation: \n 1. Addition  \n 2. Subtraction  \n 3. Multiplication  \n 4. Division  ");
+	                    String operation = scanner.next();
+	                    double result = calculator(num1, num2, operation);
+	                    System.out.println("Result: " + result);
+	                    break;
+	                }
+	               
+	            
+	                case 2: {
+	                	
+	                    System.out.print("Enter the length of the rectangle: ");
+	                    double length = scanner.nextDouble();
+	                    System.out.print("Enter the width of the rectangle: ");
+	                    double width = scanner.nextDouble();
+	                    System.out.println("Area of Rectangle: " + calculateRectangleArea(length, width));
+	                    System.out.println("Perimeter of Rectangle: " + calculateRectanglePerimeter(length, width));
+	                    
+	                    break;
+	                }
+	                case 3: {
+	                	 
+	                    System.out.print("Enter the radius of the circle: ");
+	                    double radius = scanner.nextDouble();
+	                    System.out.println("Area of Circle: " + calculateCircleArea(radius));
+	                    System.out.println("Circumference of Circle: " + calculateCircleCircumference(radius));
+	                    
+	                    break;
+	                }
+	                case 4: {
+	                	 
+	                    System.out.print("Enter the value in centimeters: ");
+	                    double cm = scanner.nextDouble();
+	                    System.out.println(cm + " cm = " + cmToMm(cm) + " mm");
+	                    
+	                    break;
+	                }
+	                case 5: {
+	                	 
+	                    System.out.print("Enter the value in centimeters: ");
+	                    double cm = scanner.nextDouble();
+	                    System.out.println(cm + " cm = " + cmToM(cm) + " meters");
+	                    
+	                    break;
+	                }
+	                case 6: {
+	                	 
+	                	 
+	                    System.out.println("Exiting program..... Thank you for using our app  <33...");
+	                    
+	                    break;
+	                }
+	                default:
+	                    System.out.println("Invalid choice. Please try again.");
+	            }
+
+	        } catch (InputMismatchException e) {
+	            System.out.println("Error: Invalid input. Please enter a number.");
+	            scanner.nextLine(); // Clear the invalid input
+	        } catch (Exception e) {
+	            System.out.println("An unexpected error occurred: " + e.getMessage());
+	        }
+
+	    } while (choice != 6);
+	    
+	    
+	    
+	    scanner.close();
+	}
+	
+	private static void clearScreen() {
+		
+		for (int i = 0; i < 100; i++) {
+			System.out.println("\n");
+		}
+		
+	}
+	
+	
+}
